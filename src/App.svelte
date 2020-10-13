@@ -1,17 +1,23 @@
 <script>
-  let items = [
-    {id: 1, name: "Masker Covid Premium", qty: 1, price: 150000},
-    {id: 2, name: "Masker Covid Bronze", qty: 2, price: 50000},
-  ];
+  export let items = [];
 
   $: total = items.reduce(function(acc, {qty, price}){
     return acc + (qty * price);
   }, 0);
+
+  function addItem() {
+    const newId = items.length + 1;
+    items = [...items, {id: newId, name: `Masker ${newId}`}]
+  }
+
+  function handleClickNewItem() {
+    addItem();
+  }
 </script>
 
-<h1>Hello World!</h1>
 <main>
   <h1>Shopping Cart</h1>
+  <button on:click={handleClickNewItem}>New Item</button>
   <ul>
     {#each items as item}
     <li>
